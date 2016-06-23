@@ -1,0 +1,84 @@
+
+body {
+    margin: 0 0 0 10px;
+}
+
+
+.navbar {
+    background: url(/static/nice_snow.png);
+}
+
+
+.hidden {
+    display: none;
+}
+
+/*button styling*/
+.btn {
+    margin: 5px;
+    border-radius: 2px;
+    background-color: #999647;
+    border-color: #999647;
+}
+
+.btn:hover {
+    background-color: #CCC72F;
+    color: lightgray;
+    border-color: #CCC72F;
+}
+
+.btn-secondary {
+    margin: 5px;
+    width: 100px;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    border-color: lightgray;
+}
+
+/*link styling*/
+a {
+    color: #999647;
+}
+
+/* unvisited link */
+a:link {
+    color: #999647;
+}
+
+/* visited link */
+a:visited {
+    color: #CCC72F;
+}
+
+/* mouse over link */
+a:hover {
+    color: #CCC72F;
+}
+
+/* selected link */
+a:active {
+    color: #CCC72F;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #CCC72F;
+}
+
+.navbar-default .navbar-nav>.active>a {
+    color: #CCC72F;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+

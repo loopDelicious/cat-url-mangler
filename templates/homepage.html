@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Home</title>
+    <link href="/static/base.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+    <div class='message'>
+        <h3>insert url for mangling: </h3>
+            <form id='encoder' method='POST'>
+                <div class='submit-encoder'>
+                  <input type='text' id='notes' class='encode-text' placeholder='Paste your url here.' name='encoder'>
+                  <input type='submit' class='btn'>
+                </div>
+            </form> 
+    </div>
+
+    <div class='display'>
+
+    </div>
+
+
+{% endblock %}
