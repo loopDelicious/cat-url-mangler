@@ -3,7 +3,7 @@
 import sqlalchemy
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session, jsonify, Response
+from flask import Flask, render_template, redirect, request, send_from_directory, session, jsonify, Response
 
 from model import Url, connect_to_db, db
 
@@ -23,7 +23,6 @@ def index():
     """Homepage."""
 
     return render_template("homepage.html")
-
 
 
 @app.route('/encode_url', methods=['POST'])
@@ -71,7 +70,6 @@ def encode_url():
     return encode_url
 
 
-
 def is_valid_url(url):
     """Helper function to validate if user entered a valid url."""
 
@@ -86,6 +84,27 @@ def is_valid_url(url):
     return url is not None and regex.search(url)
 
 
+# @app.route('/redirect_url')
+# def redirect_url():
+#     """For a user who clicks on an encoded url, redirect to the original url."""
+
+#     redirect = True
+
+#     while redirect:
+
+#         # check if url in db
+#         if Url.query.filter(Url.encode_url == encode_url).first() is None:
+#             redirect = False
+#             message = "URL not found."
+#             return render_template('/error',
+#                                     message=message)
+#         else:
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon-paw.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
     app.debug = True

@@ -1,23 +1,36 @@
 
+body {
+    font-family: 'Helvetica Neue';
+    background: linear-gradient(transparent 60%, white), url(/static/cat-face2.jpg) no-repeat;
+    background-size: cover;
+}
+
+html, body {
+    /* background-color: white; */
+    height: 100%;
+}
+
+h3 {
+    padding: 5px;
+}
+
 .nav {
-    background: url(/static/logo_x_pattern/logo_x_pattern.png);
     width: auto;
-    height: 15px;
     display: block;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     border-style: solid;
     border-width: thin;
     border-color: lightgray;
-    padding: 5px;
+    padding: 25px;
     margin: 0;
-    font-family: 'Helvetica Neue';
 }
 
 .nav-brand {
     width: 100px;
     height: auto;
     display: block;
-
+    font-size: 30px;
+    color: #5096FF;
 }
 
 
@@ -25,41 +38,51 @@
     display: none;
 }
 
+#notes {
+    /* margin: 5px 0 5px 5px; */
+    width: 400px;
+    /* height: 30px; */
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: solid #5096FF 1px;
+    /* display: inline-block; */
+    float: left;
+    padding: 10px;
+}
+
 /*button styling*/
 .btn {
-    margin: 5px;
-    border-radius: 2px;
-    background-color: #999647;
-    border-color: #999647;
+    /* margin: 5px 0 5px 0; */
+    /* height: 30px; */
+    width: 100px;
+    border-radius: 0 6px 6px 0;
+    background-color: #5096FF;
+    font-size: 15px;
+    border: solid #5096FF 1px;
+    /* display: inline-block; */
+    float: left;
+    padding: 10px;
 }
 
 .btn:hover {
     background-color: #CCC72F;
-    color: lightgray;
+    color: black;
     border-color: #CCC72F;
-}
-
-.btn-secondary {
-    margin: 5px;
-    width: 100px;
-    border-radius: 2px;
-    background-color: whitesmoke;
-    border-color: lightgray;
 }
 
 /*link styling*/
 a {
-    color: #999647;
+    color: #5096FF;
 }
 
 /* unvisited link */
 a:link {
-    color: #999647;
+    color: #5096FF
 }
 
 /* visited link */
 a:visited {
-    color: #CCC72F;
+    color: #5096FF;
 }
 
 /* mouse over link */
@@ -87,7 +110,7 @@ a:active {
 }
 
 .navbar-default .navbar-nav>.active>a {
-    color: #CCC72F;
+    color: #5096FF;
 }
 
 .navbar-brand {
@@ -95,19 +118,48 @@ a:active {
 }
 
 .guts {
-    margin: 0 0 100px 0;
+    margin: 0 0 50px 0;
 }
 
 .message {
-    margin: 0 0 100px 0;
-    border: solid;
-    width: 400px;
-    height: auto;
+    margin: 0 0 50px 0;
+    height: 30px;
+    font-size: 15px;
 }
 .display {
-    border: 1px;
-    border-color: lightgray;
-    width: auto;
-    height: auto;
+    border: solid 1px lightgray;
+    width: 400px;
+    /* height: 30px; */
+    line-height:  30px;
+    font-size: 15px;
+    color: darkgray;
+    padding: 10px;
 }
 
+.new-url {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    font-size: 15px;
+}
+
+.guts {
+    padding: 20px;
+}
+
+.copy-btn {
+    text-align: right;
+}
+
+#attribution {
+    padding: 5px;
+    margin: 250px 0 0 0;
+    position: absolute;
+    bottom: 35px;
+}
+
+.disclaimer {
+    font-size: 10px;
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+}
