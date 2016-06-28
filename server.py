@@ -84,27 +84,33 @@ def is_valid_url(url):
     return url is not None and regex.search(url)
 
 
-# @app.route('/redirect_url')
-# def redirect_url():
-#     """For a user who clicks on an encoded url, redirect to the original url."""
+@app.route('/<id>')
+def redirect_url(url):
+    """For a user who enters encoded url in a browser, redirect to the original url."""
 
-#     redirect = True
+    possible_id = url[14:]  # remove URL prefix
+    redirect = True
 
-#     while redirect:
+    while redirect:
+        url = Url.query.filter(Url.encode_url == possible_id).first()
+        # check if url in db
+        if url is None:
+            redirect = False
+            message = "URL not found."
+            return render_template('/error',
+                                    message=message)
+        else:
+            original = url.original_url
+            return redirect(url, code=301)
 
-#         # check if url in db
-#         if Url.query.filter(Url.encode_url == encode_url).first() is None:
-#             redirect = False
-#             message = "URL not found."
-#             return render_template('/error',
-#                                     message=message)
-#         else:
 
 
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon-paw.ico', mimetype='image/vnd.microsoft.icon')
+
+
 
 if __name__ == "__main__":
     app.debug = True

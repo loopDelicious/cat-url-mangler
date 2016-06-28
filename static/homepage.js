@@ -1,5 +1,18 @@
+$(document).ready(function() {
+    $('.display-contents').hide();
+    $('.display').hide();
+    $('.copy-btn').hide();
+})
+
 function display_url(url) {
-  $('.display').text("http://" + url);
+  $('.display-contents').show();
+  $('.display').show();
+  if (url == "Please submit a valid url.") {
+    $('.display').text(url);
+  } else {
+    $('.display').text("http://catt.ify/" + url);
+    $('.copy-btn').show();
+  }
 }
 
 // ajax post request to save user's url to db
@@ -11,11 +24,13 @@ $('#encoder').on('submit', function(e) {
     data: {
       'original_url': $('#notes').val(),
     },
-    success: function(url) {
+    success: function(url) { 
       display_url(url);
     }
   });
 });
+
+
 
 var clipboard = new Clipboard('.copy-btn');
 
