@@ -65,16 +65,14 @@ h3 {
 }
 /*button styling*/
 .btn {
-    /* margin: 5px 0 5px 0; */
-    /* height: 30px; */
     width: 100px;
     border-radius: 0 6px 6px 0;
     background-color: #5096FF;
     font-size: 15px;
     border: solid #5096FF 1px;
-    /* display: inline-block; */
     float: left;
     padding: 11px;
+    cursor: pointer;
 }
 .submit-btn {
     background-color: #5096FF;
@@ -97,12 +95,10 @@ h3 {
     line-height: 30px;
 }
 .display {
-    /* margin: 0 0 0 5px; */
     float: left;
     padding: 5px;
 }
 .new-url {
-    /*box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);*/
     width: 400px;
     float: left;
     border: solid 1px lightgray;
@@ -114,7 +110,6 @@ h3 {
 }
 
 /*tooltip styling*/
-/*FIXME: add tooltips to Copy button for Copy to clipboard and Copied!*/
 .tooltip .tooltiptext::after {
     content: " ";
     position: absolute;

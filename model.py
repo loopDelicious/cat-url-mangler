@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 ##############################################################################
-# Model definitions
+# Model definition
 
 class Url(db.Model):
     """URLs that are uploaded by users."""
@@ -18,7 +18,7 @@ class Url(db.Model):
 
     url_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     original_url = db.Column(db.String(10000), nullable=False)
-    encode_url = db.Column(db.String(1000), nullable=False)
+    encode_url = db.Column(db.String(1000), nullable=False) # path following http:// or https://<hostname>
 
     def __repr__(self):
         """Provide helpful representation when printed, for human readability."""
@@ -28,7 +28,6 @@ class Url(db.Model):
 
 
 ##############################################################################
-# Helper functions
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""

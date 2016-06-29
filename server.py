@@ -1,4 +1,4 @@
-"""Cat mangler."""
+"""Cat URL mangler."""
 
 import sqlalchemy
 from jinja2 import StrictUndefined
@@ -16,7 +16,6 @@ app = Flask(__name__)
 
 # Raise an error if you use an undefined variable in Jinja2
 app.jinja_env.undefined = StrictUndefined
-
 
 @app.route('/')
 def index():
@@ -86,6 +85,8 @@ def is_valid_url(url):
 
 @app.route('/favicon.ico')
 def favicon():
+    """Cat paw favicon!"""
+
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon-paw.ico', mimetype='image/vnd.microsoft.icon')
 

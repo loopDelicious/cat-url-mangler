@@ -1,10 +1,12 @@
+
+// hide encoded url display section and elements
 $(document).ready(function() {
     $('.display-contents').hide();
     $('.display').hide();
     $('.display-intro').hide();
     $('.copy-btn').hide();
 })
-
+// helper function to display encoded url
 function display_url(url) {
   $('.display-contents').show();
   $('.display').show();
@@ -12,7 +14,10 @@ function display_url(url) {
     $('.new-url').val(url);
   } else {
     // $('.new-url').val("http://catt.ify/" + url);
-    $('.new-url').val("http://localhost:5000/" + url);
+    var protocol = window.location.protocol;
+    var host = window.location.hostname;
+    var port = window.location.port;
+    $('.new-url').val(protocol + "//" + host + ":" + port + "/" + url);
     $('.display-intro').show();
     $('.copy-btn').show();
   }
@@ -33,8 +38,7 @@ $('#encoder').on('submit', function(e) {
   });
 });
 
-
-
+// Clipboard.JS to copy new URL to clipboard
 var clipboard = new Clipboard('.copy-btn');
 $('.copy-btn').attr('title', 'Copy to clipboard').tooltip('fixTitle').tooltip('show');
 
@@ -42,7 +46,7 @@ clipboard.on('success', function(e) {
     console.info('Action:', e.action);
     console.info('Text:', e.text);
     console.info('Trigger:', e.trigger);
-    $(e.trigger).attr('title', 'Copied').tooltip('fixTitle').tooltip('show');
+    $(e.target).attr('title', 'Copied').tooltip('fixTitle').tooltip('show');
     e.clearSelection();
 });
 
