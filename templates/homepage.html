@@ -3,33 +3,36 @@
 
 {% block head %}
     <title>CatURL</title>
-
 {% endblock %}
 
 {% block content %}
-
+    <!-- fork me on github button -->
     <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 
     <div class='guts'>
+
+        <!-- initial display of input box -->
         <div class='message-contents'>
             <h3>enter an original url to create a custom cat url: </h3>
                 <form id='encoder' method='POST'>
                     <div class='submit-encoder'>
-                      <input type='text' id='notes' class='encode-text' placeholder='http://www.google.com' name='original_url'><input type='submit' class='submit-btn btn' value='cattify'>
+                      <input type='text' id='notes' class='encode-text' placeholder='http://www.google.com' name='original_url'><input type='submit' class='btn submit-btn' value='cattify'>
                     </div>
                 </form> 
         </div>
         
+        <!-- subsequent display of encoded url -->
         <div class="display-contents">
-            <h3>is now: </h3>
-                <div class='display'>
-                    <input type='text' class='new-url' readonly><input type='button' class='copy-btn btn' value='copy' data-clipboard-target=".new-url">
-                </div>
+            <div class='display-intro'>
+                <h3>is now: </h3>
+            </div>
+
+            <div class='display'>
+                <input type='text' class='new-url' readonly><input type='button' class='btn copy-btn' value='copy' data-clipboard-action="copy" data-clipboard-target=".new-url">
+            </div>
         </div>
 
-
-
-
+        <!-- footer attribution and disclaimer -->
         <div id='attribution'>created by: <a href='http://www.github.com/loopDelicious'>Joyce Lin</a></div>
 
         <div class='disclaimer'><p>Intended for entertainment use only. No guarantees made. No one endorses anything contained in the URLs. </br>CatURL is not responsible for any content linked through its service. Use at your own risk.</p></div>
