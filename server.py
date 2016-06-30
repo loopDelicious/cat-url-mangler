@@ -14,6 +14,8 @@ import re
 
 app = Flask(__name__)
 
+app.secret_key = os.environ["FLASK_SECRET_KEY"]
+
 # Raise an error if you use an undefined variable in Jinja2
 app.jinja_env.undefined = StrictUndefined
 
@@ -123,8 +125,9 @@ def error():
 
 
 if __name__ == "__main__":
-    app.debug = True
-    connect_to_db(app)
+    if os.environ.get("NO_DEBUG"):
+        app.debug == False
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
     app.run()
 
 PORT = int(os.environ.get("PORT", 5000))
@@ -132,3 +135,4 @@ app.run(host="0.0.0.0", port=PORT)
 
 DEBUG = "NO_DEBUG" not in os.environ
 app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+

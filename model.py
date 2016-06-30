@@ -29,11 +29,11 @@ class Url(db.Model):
 
 ##############################################################################
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri=None):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///urls'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql:///urls'
     db.app = app
     db.init_app(app)
 
