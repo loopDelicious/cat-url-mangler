@@ -106,7 +106,7 @@ def redirect_url(path):
         if url is None:
             should_redirect = False
             message = "URL not found."
-            if app.debug = True:
+            if app.debug == True:
                 return render_template('error.html',
                                     message=message)
             else:
@@ -125,7 +125,7 @@ def error():
 
 
 if __name__ == "__main__":
-    if True or os.environ.get("NO_DEBUG"):
+    if os.environ.get("NO_DEBUG"):
         app.debug == False
     connect_to_db(app, os.environ.get("DATABASE_URL"))
     app.run()
