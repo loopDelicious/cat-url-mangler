@@ -125,7 +125,7 @@ def error():
 
 
 if __name__ == "__main__":
-    if os.environ.get("NO_DEBUG"):
+    if True or os.environ.get("NO_DEBUG"):
         app.debug == False
     connect_to_db(app, os.environ.get("DATABASE_URL"))
     app.run()
