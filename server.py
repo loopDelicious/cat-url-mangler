@@ -104,8 +104,11 @@ def redirect_url(path):
         if url is None:
             should_redirect = False
             message = "URL not found."
-            return render_template('error.html',
+            if app.debug = True:
+                return render_template('error.html',
                                     message=message)
+            else:
+                return redirect('/error')
         else:
             original = url.original_url
             if (original[:7] == "http://") | (original[:8] == "https://"): 
@@ -114,9 +117,18 @@ def redirect_url(path):
                 destination =  "//" + original
             return redirect(destination, code=301)
 
+@app.route("/error")
+def error():
+    raise Exception("Error!")
 
 
 if __name__ == "__main__":
     app.debug = True
     connect_to_db(app)
     app.run()
+
+PORT = int(os.environ.get("PORT", 5000))
+app.run(host="0.0.0.0", port=PORT)
+
+DEBUG = "NO_DEBUG" not in os.environ
+app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
