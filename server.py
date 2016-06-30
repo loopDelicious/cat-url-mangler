@@ -126,14 +126,14 @@ def error():
 
 
 if __name__ == "__main__":
-    if os.environ.get("NO_DEBUG"):
-        app.debug == False
+    # if os.environ.get("NO_DEBUG"):
+        # app.debug == False
     connect_to_db(app, os.environ.get("DATABASE_URL"))
-    app.run()
+    # app.run()
 
-PORT = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=PORT)
+    PORT = int(os.environ.get("PORT", 5000))
+    # app.run(host="0.0.0.0", port=PORT)
 
-DEBUG = "NO_DEBUG" not in os.environ
-app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+    DEBUG = "NO_DEBUG" not in os.environ
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 
