@@ -130,9 +130,7 @@ if __name__ == "__main__":
         # app.debug == False
     connect_to_db(app, os.environ.get("DATABASE_URL"))
     # app.run()
-    db.create_all()
-    # test db persistence
-
+    # db.create_all()
 
     PORT = int(os.environ.get("PORT", 5000))
     # app.run(host="0.0.0.0", port=PORT)
