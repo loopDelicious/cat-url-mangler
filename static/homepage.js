@@ -28,7 +28,7 @@ $('#encoder').on('submit', function(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: '/encode_url',
+    url: '/cat_path',
     data: {
       'original_url': $('#notes').val(),
     },

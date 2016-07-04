@@ -12,6 +12,8 @@ import requests
 import random
 import re
 import os
+import redis
+
 
 app = Flask(__name__)
 
@@ -27,8 +29,8 @@ def index():
     return render_template("homepage.html")
 
 
-@app.route('/encode_url', methods=['POST'])
-def encode_url():
+@app.route('/cat_path', methods=['POST'])
+def cat_path():
     """Encode user original url to cat-url."""
 
     original_url = request.form.get('original_url')
@@ -47,29 +49,29 @@ def encode_url():
         # initiate randomizer for punctuation
         punctuation = random.randint(0,1)  #  separated by . or -
 
-        encode_url = ''
+        cat_path = ''
 
         for i in range(5):
             word = random.choice(cat_words).strip()  # random cat word
             should_upper = random.randint(0,1) # initiate randomizer for upper / lower case
             word = word.upper() if should_upper else word.lower()
             word = word + ('.' if punctuation else '-')
-            encode_url += word
+            cat_path += word
 
-        encode_url = encode_url[:-1]
+        cat_path = cat_path[:-1]
 
         # check if url already in db
-        if Url.query.filter(Url.encode_url == encode_url).first() is None:
+        if Url.query.filter(Url.cat_path == cat_path).first() is None:
             need_new_url = False
 
     new_url = Url(original_url=original_url,
-                  encode_url=encode_url
+                  cat_path=cat_path
                   )
 
     db.session.add(new_url)
     db.session.commit()
 
-    return encode_url
+    return cat_path
 
 
 def is_valid_url(url):
@@ -94,31 +96,51 @@ def favicon():
                                'favicon-paw.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/<path>')
-def redirect_url(path):
-    """For a user who enters encoded url in a browser, redirect to the original url."""
+@app.route('/<user_path>')
+def redirect_url(user_path):
+    """For a user who enters encoded cat url in a browser, redirect to the original url."""
 
     # import pdb; pdb.set_trace()
-    should_redirect = True
+        # increment view counter in redis for url
 
-    while should_redirect:
-        url = Url.query.filter(Url.encode_url == path).first()
-        # check if url in db
-        if url is None:
-            should_redirect = False
-            message = "URL not found."
-            if app.debug == True:
-                return render_template('error.html',
-                                    message=message)
-            else:
-                return redirect('/error')
+    # check redis first for key:value, then check db if not there
+    destination = redis_connection.get(user_path)
+
+    # create variable cat_path views
+    cat_path_views = user_path + "_views"
+
+    if destination:
+
+        # increment cat_path_views and redirect from redis
+        redis_connection.incr(cat_path_views)
+        return redirect(destination, code=302)
+
+    # if cat_path not in redis, search database
+    url = Url.query.filter(Url.cat_path == user_path).first()
+
+    if url is None:
+        should_redirect = False
+        message = "URL not found."
+        if app.debug == True:
+            return render_template('error.html',
+                                message=message)
         else:
-            original = url.original_url
-            if (original[:7] == "http://") | (original[:8] == "https://"): 
-                destination = original
-            else:
-                destination =  "//" + original
-            return redirect(destination, code=301)
+            return redirect('/error')
+    else:
+        original = url.original_url
+        if (original[:7] == "http://") | (original[:8] == "https://"): 
+            destination = original
+        else:
+            destination =  "//" + original
+
+        # add key:value (cat_path: destination) to redis, and time to live expiration (in sec)
+        redis_connection.setex(url.cat_path, destination, 60*60)
+ 
+        # increment cat_path_views
+        redis_connection.incr(cat_path_views, amount=1)
+
+        return redirect(destination, code=302)
+
 
 @app.route("/error")
 def error():
@@ -126,15 +148,14 @@ def error():
 
 
 if __name__ == "__main__":
-    # if os.environ.get("NO_DEBUG"):
-        # app.debug == False
     connect_to_db(app, os.environ.get("DATABASE_URL"))
-    # app.run()
+
+    redis_uri = os.environ.get("REDIS_URL") or 'redis://localhost:6379'
+    redis_connection = redis.from_url(redis_uri)
+    
     # db.create_all()
 
     PORT = int(os.environ.get("PORT", 5000))
-    # app.run(host="0.0.0.0", port=PORT)
-
     DEBUG = "NO_DEBUG" not in os.environ
     app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 
