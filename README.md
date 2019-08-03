@@ -1,5 +1,7 @@
 # CatUrl #
 
+[![GitHub](https://img.shields.io/github/license/loopDelicious/cat-url-mangler)](/LICENSE)
+
 #### It's a litter bit amazing!
 
 Learn more about the developer:  www.linkedin.com/in/joyce-lin
